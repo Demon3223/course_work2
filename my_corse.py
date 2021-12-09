@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, abort
 from functions import read_json, return_post, return_comments, return_user, add_comments
-app = Flask(__name__)
+app = Flask("my_project")
 
 POST_PATH = "data/data.json"
 COMMENTS_PATH = "data/comments.json"
