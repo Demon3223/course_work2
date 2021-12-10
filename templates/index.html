@@ -38,7 +38,7 @@
         <a href="/post/{{post.pk}}" class="item__post-link">
           <img src="{{post.pic}}" alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr">{{post.content}}</p>
+        <p class="item__descr">{{post.content[:50]}}</p>
         <div class="item__post-info">
           <p class="item__comments-counter">13 комментариев</p>
           <div class="item__counter">
