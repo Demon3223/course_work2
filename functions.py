@@ -31,7 +31,14 @@ def return_comments(post_id):
 
 def return_user(data, name):
     for user in data:
+        user["cnt_comment"] = 0
+        pk = user["pk"]
+        comments = return_comments(pk)
+        for com in comments:
+            if user["pk"] == com["post_id"]:
+                user["cnt_comment"] += 1
         if user["poster_name"] == name:
+
             return user
 
 

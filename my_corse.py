@@ -46,6 +46,7 @@ def search_page():
 @app.route("/user-feed/<username>")
 def user_page(username):
     post = return_user(get_post(), username)
+
     return render_template("user-feed.html", post=post)
 
 
