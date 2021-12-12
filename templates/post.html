@@ -43,13 +43,13 @@
         </a>
         <div class="item__descr">
           <p class="item__text">
-            {{data.content}}
+            {{data.content|safe}}
           </p>
 
         </div>
         <div class="item__bottom">
           <div class="item__post-info">
-            <p class="item__comments-counter">{{count}} комментария</p>
+            <p class="item__comments-counter">{{comments|length}} комментария</p>
             <div class="item__counter">
               <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
               <span class="item__counter-text">{{data.views_count}}</span>

@@ -1,8 +1,16 @@
 import json
 
-def read_json(filename):
-    with open(filename, encoding="utf-8") as file:
-        return json.load(file)
+
+def get_post():
+    with open("data/data.json", encoding="utf-8") as file:
+        posts = json.load(file)
+
+    for i in range(len(posts)):
+        pk = posts[i]["pk"]
+        content = posts[i]['content']
+        posts[i]["len_comments"] = len(return_comments(pk))
+        posts[i]["content"] = content_tag(content)
+    return posts
 
 
 def return_post(data, pk):
@@ -11,11 +19,13 @@ def return_post(data, pk):
             return post
 
 
-def return_comments(data, pk):
+def return_comments(post_id):
     all_comments = []
-    for post in data:
-        if post["post_id"] == pk:
-            all_comments.append(post)
+    with open("data/comments.json", encoding="utf-8") as file:
+        comments = json.load(file)
+    for com in comments:
+        if com.get("post_id") == post_id:
+            all_comments.append(com)
     return all_comments
 
 
@@ -25,9 +35,43 @@ def return_user(data, name):
             return user
 
 
-def add_comments(filename, post):
-    data = read_json(filename)
+def content_tag(content):
+    words = content.split(" ")
+    words_tag = []
+
+    for word in words:
+        if word[0] == "#":
+            tag = word.replace("#", "")
+            words_tag.append(f"<a href=/tag/{tag}>{word}</a>")
+        else:
+            words_tag.append(word)
+    return " ".join(words_tag)
+
+
+def search_post(s):
+    with open("data/data.json", encoding="utf-8") as file:
+        posts = json.load(file)
+
+    content = []
+
+    for post in posts:
+        post["cnt_comment"] = 0
+        pk = post["pk"]
+        comments = return_comments(pk)
+        for com in comments:
+            if post["pk"] == com["post_id"]:
+                post["cnt_comment"] +=1
+        if s in post["content"]:
+            content.append(post)
+
+    return content
+
+
+def add_comments( post):
+    with open("data/comments.json", encoding="utf-8") as file:
+        data = json.load(file)
     data.append(post)
-    with open(filename, "w", encoding="utf-8") as file:
+    with open("data/comments.json", "w", encoding="utf-8") as file:
         json.dump(data, file, ensure_ascii=False, indent=4, sort_keys=True)
 
+print(len(search_post("не")))
