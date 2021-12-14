@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, abort
-from functions import get_post, return_post, return_comments, return_user, add_comments, search_post
+from functions import get_post, return_post, return_comments, return_user, add_comments, search_post, get_tags
 app = Flask("my_project")
 
 
@@ -48,6 +48,14 @@ def user_page(username):
     post = return_user(get_post(), username)
 
     return render_template("user-feed.html", post=post)
+
+@app.route("/tag/<tagname>")
+def tag_page(tagname):
+    if not tagname:
+        abort(400, "Введите тег")
+    data = get_tags(tagname)
+
+    return render_template("tag.html", data=data, tagname=tagname)
 
 
 if __name__ == "__main__":

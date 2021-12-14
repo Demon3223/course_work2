@@ -42,6 +42,29 @@ def return_user(data, name):
             return user
 
 
+def get_tags(content):
+    with open("data/data.json", encoding="utf-8") as file:
+        posts = json.load(file)
+    cont_tag = []
+    for post in posts:
+        if f'#{content}' in post["content"]:
+            cont_tag.append(post)
+            cont = post["content"]
+            pk = post["pk"]
+            post["len_comments"] = len(return_comments(pk))
+            post["content"] = content_tag(cont)
+
+    return cont_tag
+    # words = content.split(" ")
+    # word_tag = []
+    #
+    # for word in words:
+    #     if word.startswith("#"):
+    #         tag = word.replace("#", "")
+    #         word_tag.append(f"<a href=/tag/{tag}>{word}</a>")
+    # return "".join(word_tag)
+
+
 def content_tag(content):
     words = content.split(" ")
     words_tag = []
