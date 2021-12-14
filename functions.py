@@ -55,14 +55,7 @@ def get_tags(content):
             post["content"] = content_tag(cont)
 
     return cont_tag
-    # words = content.split(" ")
-    # word_tag = []
-    #
-    # for word in words:
-    #     if word.startswith("#"):
-    #         tag = word.replace("#", "")
-    #         word_tag.append(f"<a href=/tag/{tag}>{word}</a>")
-    # return "".join(word_tag)
+
 
 
 def content_tag(content):
